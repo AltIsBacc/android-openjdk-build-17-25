@@ -9,8 +9,8 @@ if [[ "$TARGET_JDK" == "aarch64" ]]
 then
   export CFLAGS+=" -O3 -march=armv8.2-a+crypto+dotprod -mtune=cortex-a78"
   export CFLAGS+=" -flto -fomit-frame-pointer"
-  export CFLAGS+=" -D_LIBCPP_HAS_NO_OFF_T_FUNCTIONS"
-  export LDFLAGS+=" -flto -Wl,-O3 -Wl,--as-needed -Wl,--gc-sections"
+  # export CFLAGS+=" -D_LIBCPP_HAS_NO_OFF_T_FUNCTIONS"
+  export LDFLAGS+=" -flto" # -Wl,-O3 -Wl,--as-needed -Wl,--gc-sections"
 elif [[ "$TARGET_JDK" == "x86" ]]; then
   export CFLAGS+=" -O3 -mstackrealign"
 else
