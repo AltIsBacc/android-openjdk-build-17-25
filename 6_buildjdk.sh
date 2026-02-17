@@ -5,15 +5,16 @@ set -e
 export FREETYPE_DIR=$PWD/freetype-$BUILD_FREETYPE_VERSION/build_android-$TARGET_SHORT
 export CUPS_DIR=$PWD/cups-2.2.4
 export CFLAGS+=" -DLE_STANDALONE" # -I$FREETYPE_DIR -I$CUPS_DI
-if [[ "$TARGET_JDK" == "arm" ]] # || [[ "$BUILD_IOS" == "1" ]]
+if [[ "$TARGET_JDK" == "aarch64" ]]
 then
-  export CFLAGS+=" -O3 -D__thumb__ -DARM -D_LIBCPP_HAS_NO_OFF_T_FUNCTIONS"
+  export CFLAGS+=" -O3 -march=armv8.2-a+crypto+dotprod -mtune=cortex-a78"
+  export CFLAGS+=" -flto -fomit-frame-pointer"
+  export CFLAGS+=" -D_LIBCPP_HAS_NO_OFF_T_FUNCTIONS"
+  export LDFLAGS+=" -flto -Wl,-O3 -Wl,--as-needed -Wl,--gc-sections"
+elif [[ "$TARGET_JDK" == "x86" ]]; then
+  export CFLAGS+=" -O3 -mstackrealign"
 else
-  if [[ "$TARGET_JDK" == "x86" ]]; then
-     export CFLAGS+=" -O3 -mstackrealign"
-  else
-     export CFLAGS+=" -O3"
-  fi
+  export CFLAGS+=" -O3"
 fi
 
 # if [[ "$TARGET_JDK" == "aarch32" ]] || [[ "$TARGET_JDK" == "aarch64" ]]
