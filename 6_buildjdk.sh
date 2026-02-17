@@ -118,7 +118,7 @@ bash ./configure \
     --enable-headless-only=yes \
     --with-build-jdk=$JAVA_HOME \
     --with-jvm-variants=$JVM_VARIANTS \
-    --with-jvm-features=-dtrace,-zero,-vm-structs,-epsilongc \
+    --with-jvm-features=-dtrace,-zero,-vm-structs,-epsilongc,+shenandoahgc \
     --with-cups-include=$CUPS_DIR \
     --with-devkit=$TOOLCHAIN \
     --with-native-debug-symbols=external \
